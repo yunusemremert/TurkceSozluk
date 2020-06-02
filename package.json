@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "svgr": "svgr ./src/icons -d ./src/components/icons --native --icon --svg-props 'width=24,height=24,className='"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
@@ -28,6 +29,7 @@
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
     "@react-native-community/eslint-config": "^0.0.5",
+    "@svgr/cli": "^5.4.0",
     "babel-jest": "^24.9.0",
     "eslint": "^6.5.1",
     "jest": "^24.9.0",

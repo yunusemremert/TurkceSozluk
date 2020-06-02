@@ -1,16 +1,15 @@
-import * as React from 'react'
-import Svg, { Path } from 'react-native-svg'
+import * as React from 'react';
+import Svg, {Path} from 'react-native-svg';
 
 function SvgSound(props) {
   return (
     <Svg
-      width={32}
-      height={32}
+      width="24"
+      height="24"
       viewBox="0 0 32 32"
       fill="none"
       className=""
-      {...props}
-    >
+      {...props}>
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -18,7 +17,7 @@ function SvgSound(props) {
         fill="currentColor"
       />
     </Svg>
-  )
+  );
 }
 
-export default SvgSound
+export default SvgSound;
