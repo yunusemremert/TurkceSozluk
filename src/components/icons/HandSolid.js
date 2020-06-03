@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Svg, {Path} from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
 function SvgHandSolid(props) {
   return (
@@ -9,7 +9,8 @@ function SvgHandSolid(props) {
       viewBox="0 0 32 32"
       fill="none"
       className=""
-      {...props}>
+      {...props}
+    >
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -17,7 +18,7 @@ function SvgHandSolid(props) {
         fill="currentColor"
       />
     </Svg>
-  );
+  )
 }
 
-export default SvgHandSolid;
+export default SvgHandSolid

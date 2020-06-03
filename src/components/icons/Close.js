@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Svg, {Path} from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
 function SvgClose(props) {
   return (
@@ -13,10 +13,11 @@ function SvgClose(props) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className=""
-      {...props}>
+      {...props}
+    >
       <Path d="M18 6L6 18M6 6l12 12" />
     </Svg>
-  );
+  )
 }
 
-export default SvgClose;
+export default SvgClose

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Svg, {Path} from 'react-native-svg';
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
 function SvgFavorite(props) {
   return (
@@ -9,7 +9,8 @@ function SvgFavorite(props) {
       viewBox="0 0 32 32"
       fill="none"
       className=""
-      {...props}>
+      {...props}
+    >
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -17,7 +18,7 @@ function SvgFavorite(props) {
         fill="currentColor"
       />
     </Svg>
-  );
+  )
 }
 
-export default SvgFavorite;
+export default SvgFavorite
