@@ -4,8 +4,8 @@ import Svg, { Circle, Path } from 'react-native-svg'
 function SvgSearch(props) {
   return (
     <Svg
-      width="24"
-      height="24"
+      width={24}
+      height={24}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
