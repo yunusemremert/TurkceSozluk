@@ -6,6 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
+    "pod": "cd ios; pod install; cd ..",
     "test": "jest",
     "lint": "eslint .",
     "svgr": "svgr ./src/icons -d ./src/components/icons --native --svg-props 'className=' --svgo-config .svgorc.json"
@@ -20,6 +21,7 @@
     "react-native-gesture-handler": "^1.6.1",
     "react-native-reanimated": "^1.9.0",
     "react-native-safe-area-context": "^3.0.2",
+    "react-native-safe-area-view": "^1.1.1",
     "react-native-screens": "^2.8.0",
     "react-native-svg": "^12.1.0",
     "styled-components": "^5.1.1",

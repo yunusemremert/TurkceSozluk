@@ -8,16 +8,23 @@ import theme from '../utils/theme'
 import Text from './text'
 import Button from './button'
 
-function SearchBox() {
+function SearchBox({ onChangeFocus }) {
   const [isFocus, setOnFocus] = React.useState(false)
   const [value, setValue] = React.useState('')
+
+  React.useEffect(() => {
+    onChangeFocus(isFocus)
+  }, [isFocus])
+
   const onCancel = () => {
     setOnFocus(false)
     Keyboard.dismiss()
   }
+
   const onClear = () => {
     setValue('')
   }
+
   return (
     <Box flexDirection="row" alingnItems="center">
       <Box position="relative" flex={1}>

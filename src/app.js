@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { SafeAreaView } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { ThemeProvider } from 'styled-components'
 
 import 'react-native-gesture-handler'
@@ -13,7 +13,6 @@ import HistoryView from './views/history'
 import FavoriteView from './views/favorite'
 import DetailView from './views/detail'
 import TabBar from './components/tab-bar'
-import Box from './components/box'
 
 import theme from './utils/theme'
 
@@ -22,7 +21,7 @@ const HomeStack = createStackNavigator()
 
 function SearchStack() {
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator headerMode="none">
       <HomeStack.Screen name="Search" component={SearchView} />
       <HomeStack.Screen name="Details" component={DetailView} />
     </HomeStack.Navigator>
@@ -32,7 +31,7 @@ function SearchStack() {
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Box flex={1} as={SafeAreaView}>
+      <SafeAreaProvider>
         <NavigationContainer>
           <Tab.Navigator
             initialRouteName="Search"
@@ -43,7 +42,7 @@ function App() {
             <Tab.Screen name="Favorite" component={FavoriteView} />
           </Tab.Navigator>
         </NavigationContainer>
-      </Box>
+      </SafeAreaProvider>
     </ThemeProvider>
   )
 }
