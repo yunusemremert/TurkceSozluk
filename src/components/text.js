@@ -5,9 +5,9 @@ import { compose, color, size, typography, space } from 'styled-system'
 const Text = styled(T)(
   compose(
     typography,
+    space,
     color,
-    size,
-    space
+    size
   )
 )
 
