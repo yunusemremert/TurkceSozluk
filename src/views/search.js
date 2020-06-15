@@ -127,7 +127,11 @@ function SearchView({ navigation }) {
 
               <CardContainer
                 mt={10}
-                onPress={() => navigation.navigate('Details')}
+                onPress={() =>
+                  navigation.navigate('Details', {
+                    title: 'aa'
+                  })
+                }
               >
                 <CardTitle>aa</CardTitle>
                 <CardSummary>bbb</CardSummary>
@@ -138,10 +142,14 @@ function SearchView({ navigation }) {
 
               <CardContainer
                 mt={10}
-                onPress={() => navigation.navigate('Details')}
+                onPress={() =>
+                  navigation.navigate('Details', {
+                    title: 'bb'
+                  })
+                }
               >
-                <CardTitle>aa</CardTitle>
-                <CardSummary>bbb</CardSummary>
+                <CardTitle>bb</CardTitle>
+                <CardSummary>bbbcc</CardSummary>
               </CardContainer>
             </Box>
           </Box>
