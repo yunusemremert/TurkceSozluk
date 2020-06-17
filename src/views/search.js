@@ -1,4 +1,4 @@
-import { StatusBar, Animated, FlatList } from 'react-native'
+import { StatusBar, Animated, FlatList, ActivityIndicator } from 'react-native'
 import * as React from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 
@@ -37,6 +37,18 @@ function SearchView({ navigation }) {
 
   const bgOpacity = React.useRef(new Animated.Value(1)).current
   const fadeAnim = React.useRef(new Animated.Value(heroHeight)).current
+
+  const [homeData, setHomeData] = React.useState(null)
+
+  const getHomeData = async () => {
+    const response = await fetch('https://sozluk.gov.tr/icerik')
+    const data = await response.json()
+    setHomeData(data)
+  }
+
+  React.useEffect(() => {
+    getHomeData()
+  }, [])
 
   React.useEffect(() => {
     if (isSearchFocus) {
@@ -78,7 +90,7 @@ function SearchView({ navigation }) {
     <Box as={SafeAreaView} bg={isSearchFocus ? 'softRed' : 'red'} flex={1}>
       {/* Header */}
       <Box as={Animated.View} position="relative" zIndex={1} height={fadeAnim}>
-        <Box mt={-60} as={Animated.View} opacity={bgOpacity}>
+        <Box mt={-60} as={Animated.View} style={{ opacity: bgOpacity }}>
           <Bg pt={60} pb={26}>
             <Box flex={1} alignItems="center" justifyContent="center">
               <Logo width={120} color="white" />
@@ -123,7 +135,7 @@ function SearchView({ navigation }) {
         ) : (
           <Box px={16} py={40} flex={1}>
             <Box>
-              <Text color="textLight">Bir deyim</Text>
+              <Text color="textLight">Bir Kelime</Text>
 
               <CardContainer
                 mt={10}
@@ -133,12 +145,18 @@ function SearchView({ navigation }) {
                   })
                 }
               >
-                <CardTitle>aa</CardTitle>
-                <CardSummary>bbb</CardSummary>
+                {homeData ? (
+                  <>
+                    <CardTitle>{homeData?.kelime[0].madde}</CardTitle>
+                    <CardSummary>{homeData?.kelime[0].anlam}</CardSummary>
+                  </>
+                ) : (
+                  <ActivityIndicator />
+                )}
               </CardContainer>
             </Box>
             <Box mt={30}>
-              <Text color="textLight">Bir deyim, bir atasözü</Text>
+              <Text color="textLight">Bir deyim, Atasözü</Text>
 
               <CardContainer
                 mt={10}
@@ -148,8 +166,14 @@ function SearchView({ navigation }) {
                   })
                 }
               >
-                <CardTitle>bb</CardTitle>
-                <CardSummary>bbbcc</CardSummary>
+                {homeData ? (
+                  <>
+                    <CardTitle>{homeData?.atasoz[0].madde}</CardTitle>
+                    <CardSummary>{homeData?.atasoz[0].anlam}</CardSummary>
+                  </>
+                ) : (
+                  <ActivityIndicator />
+                )}
               </CardContainer>
             </Box>
           </Box>
