@@ -23,7 +23,7 @@ function DetailView({ route }) {
     }, [])
   )
 
-  const getDetailData = async () => {
+  const getDetailData = async keyword => {
     const response = await fetch(`https://sozluk.gov.tr/gts?ara=${keyword}`)
     const data = await response.json()
 
@@ -31,8 +31,8 @@ function DetailView({ route }) {
   }
 
   React.useEffect(() => {
-    getDetailData()
-  }, [])
+    getDetailData(keyword)
+  }, [keyword])
 
   return (
     <Box as={SafeAreaView} bg="softRed" flex={1}>
