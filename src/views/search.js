@@ -1,16 +1,15 @@
-import { StatusBar, Animated, FlatList, ActivityIndicator } from 'react-native'
 import * as React from 'react'
-import { useFocusEffect } from '@react-navigation/native'
-
-import { Logo } from '../components/icons'
-import Search from '../components/search'
-import Box from '../components/box'
-import Bg from '../components/bg'
-import { CardContainer, CardSummary, CardTitle } from '../components/card'
+import { StatusBar } from 'react-native'
 
 import SafeAreaView from 'react-native-safe-area-view'
-import Text from '../components/text'
-import { SimpleCardContainer, SimpleCardTitle } from '../components/simple-card'
+
+import { useFocusEffect } from '@react-navigation/native'
+
+import Box from '../components/box'
+
+import SuggestionCard from '../components/suggestion-card'
+import SearchHistoryList from '../components/search-history-list'
+import HomeSearch from '../components/home-search'
 
 const DATA = [
   {
@@ -30,14 +29,8 @@ const DATA = [
   }
 ]
 
-const heroHeight = 230
-
 function SearchView({ navigation }) {
   const [isSearchFocus, setSearchFocus] = React.useState(false)
-
-  const bgOpacity = React.useRef(new Animated.Value(1)).current
-  const fadeAnim = React.useRef(new Animated.Value(heroHeight)).current
-
   const [homeData, setHomeData] = React.useState(null)
 
   const getHomeData = async () => {
@@ -50,37 +43,6 @@ function SearchView({ navigation }) {
     getHomeData()
   }, [])
 
-  React.useEffect(() => {
-    if (isSearchFocus) {
-      // BG Opacity
-      Animated.timing(bgOpacity, {
-        toValue: 0,
-        duration: 230,
-        useNativeDriver: false
-      }).start()
-      //
-      Animated.timing(fadeAnim, {
-        toValue: 52 + 32,
-        duration: 230,
-        useNativeDriver: false
-      }).start()
-    } else {
-      // BG Opacity
-      Animated.timing(bgOpacity, {
-        toValue: 1,
-        duration: 230,
-        useNativeDriver: false
-      }).start()
-
-      //
-      Animated.timing(fadeAnim, {
-        toValue: heroHeight,
-        duration: 230,
-        useNativeDriver: false
-      }).start()
-    }
-  }, [bgOpacity, fadeAnim, isSearchFocus])
-
   useFocusEffect(
     React.useCallback(() => {
       StatusBar.setBarStyle(isSearchFocus ? 'dark-content' : 'light-content')
@@ -89,93 +51,31 @@ function SearchView({ navigation }) {
   return (
     <Box as={SafeAreaView} bg={isSearchFocus ? 'softRed' : 'red'} flex={1}>
       {/* Header */}
-      <Box as={Animated.View} position="relative" zIndex={1} height={fadeAnim}>
-        <Box mt={-60} as={Animated.View} style={{ opacity: bgOpacity }}>
-          <Bg pt={60} pb={26}>
-            <Box flex={1} alignItems="center" justifyContent="center">
-              <Logo width={120} color="white" />
-            </Box>
-          </Bg>
-        </Box>
-
-        {/* Search Input */}
-        <Box
-          position="absolute"
-          left={0}
-          bottom={isSearchFocus ? 0 : -42}
-          p={16}
-          width="100%"
-        >
-          <Search onChangeFocus={status => setSearchFocus(status)} />
-        </Box>
-      </Box>
+      <HomeSearch
+        isSearchFocus={isSearchFocus}
+        onSearchFocus={setSearchFocus}
+      />
 
       {/* Content */}
       <Box flex={1} bg="softRed" pt={isSearchFocus ? 0 : 26}>
         {isSearchFocus ? (
           <Box flex={1}>
-            <FlatList
-              style={{ padding: 16 }}
-              data={DATA}
-              renderItem={({ item }) => (
-                <Box py={6}>
-                  <SimpleCardContainer>
-                    <SimpleCardTitle>{item.title}</SimpleCardTitle>
-                  </SimpleCardContainer>
-                </Box>
-              )}
-              keyExtractor={item => item.id}
-              ListHeaderComponent={
-                <Text color="textLight" mb={10}>
-                  Son Aramalar
-                </Text>
-              }
-            />
+            <SearchHistoryList data={DATA} />
           </Box>
         ) : (
           <Box px={16} py={40} flex={1}>
-            <Box>
-              <Text color="textLight">Bir Kelime</Text>
+            <SuggestionCard
+              title="Bir Kelime"
+              data={homeData?.kelime[0]}
+              onPress={() => navigation.navigate('Details')}
+            />
 
-              <CardContainer
-                mt={10}
-                onPress={() =>
-                  navigation.navigate('Details', {
-                    title: 'aa'
-                  })
-                }
-              >
-                {homeData ? (
-                  <>
-                    <CardTitle>{homeData?.kelime[0].madde}</CardTitle>
-                    <CardSummary>{homeData?.kelime[0].anlam}</CardSummary>
-                  </>
-                ) : (
-                  <ActivityIndicator />
-                )}
-              </CardContainer>
-            </Box>
-            <Box mt={30}>
-              <Text color="textLight">Bir deyim, Atasözü</Text>
-
-              <CardContainer
-                mt={10}
-                onPress={() =>
-                  navigation.navigate('Details', {
-                    title: 'bb'
-                  })
-                }
-              >
-                {homeData ? (
-                  <>
-                    <CardTitle>{homeData?.atasoz[0].madde}</CardTitle>
-                    <CardSummary>{homeData?.atasoz[0].anlam}</CardSummary>
-                  </>
-                ) : (
-                  <ActivityIndicator />
-                )}
-              </CardContainer>
-            </Box>
+            <SuggestionCard
+              mt={40}
+              title="Bir Deyim, Atasözü"
+              data={homeData?.atasoz[0]}
+              onPress={() => navigation.navigate('Details')}
+            />
           </Box>
         )}
       </Box>
